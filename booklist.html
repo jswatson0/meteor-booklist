@@ -1,14 +1,44 @@
 <head>
-  <title>booklist</title>
+    <title>Book List</title>
 </head>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
+<body style="font-family: monospace">
+<div class="container">
+    <header>
+        <h1 class="header">The Library</h1>
 
-  {{> hello}}
+        {{> book_form}}
+
+    </header>
+
+    <ul>
+        {{#each books}}
+        {{> book}}
+        {{/each}}
+    </ul>
+</div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="book_form">
+    <form class="new-book">
+        <ul>
+            <input class="input" type="text" name="title" placeholder="Title" onkeypress="return event.keyCode != 13;" />
+            <input class="input" type="text" name="author" placeholder="Author" onkeypress="return event.keyCode != 13;" />
+            <input class="input" type="text" name="description" placeholder="Description" onkeypress="return event.keyCode != 13;" />
+            <input class="input" type="number" name="isbn" placeholder="ISBN (optional)" />
+            <input type="submit" value="Add Book"/>
+        </ul>
+    </form>
+</template>
+
+<template name="book">
+    <h4 style="text-decoration: underline">{{title}}</h4>
+    <li><strong>Author: </strong> {{author}}</li>
+    {{#if description}}
+        <li><strong>Description: </strong>{{description}}</li>
+    {{/if}}
+    {{#if isbn}}
+        <li><strong>ISBN: </strong>{{isbn}}</li>
+    {{/if}}
+    <button class="delete">Remove book</button>
 </template>
